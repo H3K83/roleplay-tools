@@ -12752,6 +12752,7 @@ label[for=battery-slider] {
   left: -10px;
   width: 10px;
   z-index: 1;
+  content: "";
 }
 .msg-bubble-recipient > p[id^=msg-] {
   white-space: pre-wrap;

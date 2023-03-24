@@ -1640,6 +1640,7 @@ label[for="battery-slider"] {
       left: -10px;
       width: 10px;
       z-index: 1;
+      content: "";
     }
 
     & > p[id^="msg-"] {
