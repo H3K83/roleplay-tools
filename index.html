@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html class="vh-100" lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>iMessage Generator</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/overlayscrollbars.min.css" rel="stylesheet" />
+  </head>
+  <body class="vh-100">
+    <main class="d-flex flex-row h-100">
+      <nav class="d-flex flex-row h-100" id="main-menu">
+        <input class="d-none" type="checkbox" value="" id="options-menu-toggle" checked>
+        <div id="options-menu">
+          <div class="align-items-center d-flex flex-row p-4">
+            <h1 class="h4 fw-normal m-0">iMessage Generator</h1>
+            <div class="ms-auto position-relative" style="top: 2px">
+              <a href="#nav-menu" id="nav-menu-toggle" class="align-middle" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nav-menu"></a>
+            </div>
+          </div>
+          <div class="collapse" id="nav-menu">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item border-0 p-0 py-2"><a href="index.html" class="d-block fs-5 p-0 px-4">Home</a></li>
+            </ul>
+          </div>
+          <div class="options-menu-body" data-overlayscrollbars-initialize>
+            <div>
+              <div class="mb-4">
+                <div class="input-wrapper align-items-center d-flex flex-row mb-4">
+                  <label class="form-check-label" for="color-mode-switch">Dark Mode</label>
+                  <div class="form-check form-switch ms-auto">
+                    <input class="form-check-input" type="checkbox" role="switch" id="color-mode-switch" style="margin-left: 2rem" onclick="colorMode()" checked />
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <input class="form-control border-bottom-0 rounded-0 rounded-top" id="network-name-input" type="text" placeholder="Network" aria-label="Network" oninput="copyData('network-name-input', 'network')" />
+                  <div class="input-wrapper border-bottom-0 rounded-0 d-flex flex-row">
+                    <label for="signal-slider" class="form-label m-0 me-3 text-start"><i class="ci ci-signal me-1" data-signal="0"></i></label>
+                    <input type="range" class="form-range" id="signal-slider" min="0" max="4" value="4" oninput="document.getElementById('signal').setAttribute('data-signal', value)" />
+                    <label for="signal-slider" class="form-label m-0 ms-3 text-end"><i class="ci ci-signal me-1" data-signal="4"></i></label>
+                  </div>
+                  <select class="form-select border-bottom-0 rounded-0" id="connection-select" aria-label="Connection">
+                    <option class="form-select-option" value="0" selected data-bs-toggle="collapse" data-bs-target="#wifi" aria-expanded="true" aria-controls="wifi">WiFi</option>
+                    <option class="form-select-option" value="1" data-bs-toggle="collapse" data-bs-target="#connection-lte" aria-expanded="false" aria-controls="connection-lte">LTE</option>
+                    <option class="form-select-option" value="2" data-bs-toggle="collapse" data-bs-target="#connection-5g" aria-expanded="false" aria-controls="connection-5g">5G</option>
+                    <option class="form-select-option" value="3" data-bs-toggle="collapse" data-bs-target="#connection-4g" aria-expanded="false" aria-controls="connection-4g">4G</option>
+                    <option class="form-select-option" value="4" data-bs-toggle="collapse" data-bs-target="#connection-3g" aria-expanded="false" aria-controls="connection-3g">3G</option>
+                  </select>
+                  <div class="input-wrapper border-bottom-0 rounded-0 d-flex flex-row">
+                    <label for="wifi-slider" class="form-label m-0 me-3 text-start"><i class="ci ci-wifi me-1" data-wifi="0"></i></label>
+                    <input type="range" class="form-range" id="wifi-slider" min="0" max="3" value="4" oninput="document.getElementById('wifi').setAttribute('data-wifi', value)" />
+                    <label for="wifi-slider" class="form-label m-0 ms-3 text-end"><i class="ci ci-wifi me-1" data-wifi="3"></i></label>
+                  </div>
+                  <div class="input-wrapper align-items-center d-flex flex-row rounded-0 rounded-bottom">
+                    <label class="form-check-label" for="airplane-mode-switch">Airplane Mode</label>
+                    <div class="form-check form-switch ms-auto">
+                      <input class="form-check-input" type="checkbox" role="switch" id="airplane-mode-switch" style="margin-left: 2rem" data-bs-toggle="collapse" data-bs-target="#connection-type" aria-expanded="true" aria-controls="connection-type" />
+                    </div>
+                  </div>
+                </div>
+                <div class="input-wrapper d-flex flex-row">
+                  <label for="battery-slider" class="form-label m-0 me-3 text-start"><i class="ci ci-battery" data-battery="0"></i></label>
+                  <input type="range" class="form-range" id="battery-slider" min="0" max="100" value="100" oninput="document.getElementById('battery').setAttribute('data-battery', value)" />
+                  <label for="battery-slider" class="form-label m-0 ms-3 text-end"><i class="ci ci-battery" data-battery="100"></i></label>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div>
+                  <div class="input-wrapper border-bottom-0 d-flex flex-row p-0 rounded-0 rounded-top">
+                    <label for="recipient-img-upload" class="input-wrapper-link position-relative"><i class="add-msg-icon"></i><span id="recipient-img-label">Upload Icon</span></label>
+                    <i class="clear-input-icon bi bi-x-circle-fill" onclick="clearImgUpload()"></i>
+                    <input class="d-none" type="file" id="recipient-img-upload" />
+                  </div>
+                  <input class="form-control border-bottom-0 rounded-0" id="recipient-name-input" type="text" placeholder="Contact Name" aria-label="Contact Name" oninput="copyData('recipient-name-input', 'recipient-name'); copyData('recipient-name-input', 'recipient-icon');" />
+                  <select class="form-select rounded-0 rounded-bottom" id="message-type-select" aria-label="Message type">
+                    <option class="form-select-option" value="0" selected data-bs-toggle="collapse" data-bs-target="#field-imessage" aria-expanded="true" aria-controls="field-imessage">iMessage</option>
+                    <option class="form-select-option" value="1" data-bs-toggle="collapse" data-bs-target="#field-text-message" aria-expanded="false" aria-controls="field-text-message">Text Message</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div class="mb-4" id="msg-fields">
+                  <div class="msg-form" id="msg-form-834jn">
+                    <form class="input-wrapper border-bottom-0 rounded-0 rounded-top p-1">
+                      <fieldset class="btn-group d-flex justify-content-evenly p-1" id="msg-type-group-d892j" role="group" aria-label="Message Type Buttons">
+                        <input type="radio" class="btn-check" name="msg-type-group-d892j" id="msg-type-sender-2j3n8" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#msg-bubble-o8fdn" aria-expanded="true" aria-controls="msg-bubble-o8fdn" checked />
+                        <label class="btn btn-custom flex-fill fs-7 rounded" for="msg-type-sender-2j3n8">Sender</label>
+                        <input type="radio" class="btn-check" name="msg-type-group-d892j" id="msg-type-text-2unr8" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#msg-bubble-ru984" aria-expanded="false" aria-controls="msg-bubble-ru984" />
+                        <label class="btn btn-custom flex-fill fs-7 rounded" for="msg-type-text-2unr8">Sender Text</label>
+                        <input type="radio" class="btn-check" name="msg-type-group-d892j" id="msg-type-recipient-30r2u" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#msg-bubble-9834n" aria-expanded="false" aria-controls="msg-bubble-9834n" />
+                        <label class="btn btn-custom flex-fill fs-7 rounded" for="msg-type-recipient-30r2u">Recipient</label>
+                      </fieldset>
+                    </form>
+                    <textarea class="form-control msg-input rounded-0 rounded-bottom" id="msg-input-f6o4d" rows="3" placeholder="Write a message..." oninput="copyData('msg-input-f6o4d', 'msg-7dkh1'); copyData('msg-input-f6o4d', 'msg-894nc'); copyData('msg-input-f6o4d', 'msg-ux43r');"></textarea>
+                  </div>
+                </div>
+                <div class="input-wrapper mb-4 p-0">
+                  <a class="input-wrapper-link" onclick="addMsg()"><i class="add-msg-icon me-2"></i>Add Message</a>
+                </div>
+                <div class="input-wrapper mb-4 p-0">
+                  <a class="input-wrapper-link text-primary" id="capture-btn">Take Screenshot</a>
+                </div>
+                <div class="input-wrapper p-0">
+                  <a class="input-wrapper-link text-danger" onclick="clearAll()">Clear All</a>
+                </div>
+              </div>
+            </div>
+            <i class="scroll-anchor" id="msg-fields-anchor"></i>
+          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center justify-content-lg-start px-2 py-4 p-lg-4">
+          <label for="options-menu-toggle"><i class="bi bi-pause d-inline-block d-lg-none fs-1"></i><i class="bi bi-layout-sidebar-inset d-none d-lg-inline-block fs-5"></i></label>
+        </div>
+      </nav>
+      <div class="d-flex flex-column flex-grow-1">
+        <div class="container-fluid h-100 p-0 p-lg-4">
+          <div class="h-100">
+            <div class="d-flex flex-column h-100 flex-grow-1 justify-content-center">
+              <div class="d-flex flex-column rounded" id="output">
+                <div id="output-header">
+                  <div class="align-items-center d-flex flex-row ps-4 pe-3 pt-3 pb-1">
+                    <div class="fs-7 me-auto text-truncate" id="network" style="max-width: 10rem">Network</div>
+                    <div class="align-items-center d-flex flex-row collapse show" id="connection-type">
+                      <i class="ci ci-signal me-1" id="signal" data-signal="4"></i>
+                      <span class="fs-8 lh-1 me-1 position-relative collapse" id="connection-lte" data-bs-parent="#connection-type">LTE</span>
+                      <span class="fs-8 lh-1 me-1 position-relative collapse" id="connection-5g" data-bs-parent="#connection-type">5G</span>
+                      <span class="fs-8 lh-1 me-1 position-relative collapse" id="connection-4g" data-bs-parent="#connection-type">4G</span>
+                      <span class="fs-8 lh-1 me-1 position-relative collapse" id="connection-3g" data-bs-parent="#connection-type">3G</span>
+                      <i class="ci ci-wifi me-1 collapse show" id="wifi" data-wifi="3" data-bs-parent="#connection-type"></i>
+                    </div>
+                    <i class="ci ci-airplane me-1" id="airplane"></i>
+                    <i class="ci ci-battery" id="battery" data-battery="100"></i>
+                  </div>
+                  <div class="my-2">
+                    <div class="align-items-center d-flex flex-column mx-auto">
+                      <div id="recipient-img-wrapper">
+                        <div id="recipient-icon"></div>
+                        <img src="images/placeholder.png" id="recipient-img" />
+                      </div>
+                      <div class="fs-9 mt-1" id="recipient-name-wrapper"><span class="d-inline-block text-truncate" id="recipient-name" style="max-width: 10rem">Contact Name</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-grow-1" id="output-body">
+                  <div class="d-flex flex-column" id="msg-list-wrapper" data-overlayscrollbars-initialize>
+                    <div id="msg-list">
+                      <div class="msg-cluster d-flex flex-column" id="msg-cluster-2u898">
+                        <div class="d-inline-flex">
+                          <div class="msg-bubble-sender collapse show" id="msg-bubble-o8fdn" data-bs-parent="#msg-cluster-2u898"><p class="m-0 text-break" id="msg-7dkh1"></p></div>
+                        </div>
+                        <div class="d-inline-flex">
+                          <div class="msg-bubble-text collapse" id="msg-bubble-ru984" data-bs-parent="#msg-cluster-2u898"><p class="m-0 text-break" id="msg-894nc"></p></div>
+                        </div>
+                        <div class="d-inline-flex">
+                          <div class="msg-bubble-recipient collapse" id="msg-bubble-9834n" data-bs-parent="#msg-cluster-2u898"><p class="m-0 text-break" id="msg-ux43r"></p></div>
+                        </div>
+                      </div>
+                    </div>
+                    <i class="scroll-anchor" id="msg-list-anchor"></i>
+                  </div>
+                </div>
+                <div id="output-footer">
+                  <span class="collapse show" id="field-imessage" data-bs-parent="#output-footer">iMessage</span>
+                  <span class="collapse" id="field-text-message" data-bs-parent="#output-footer">Text Message</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <footer>
+        <p class="fs-7 mx-auto px-0 py-4 text-center text-muted w-75">This website was designed by <a href="https://github.com/H3K83" target="_blank" title="Hekate">Hekate</a> and is licensed under a Creative Commons <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-No Derivatives 4.0 International">BY-NC-ND 4.0 International License</a>.</p>
+      </footer>
+      </div>
+    </main>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/overlayscrollbars.browser.es6.min.js"></script>
+    <script src="js/html2canvas.min.js"></script>
+    <script>
+      //Initialize OverlayScrollbars
+      var OverlayScrollbars = OverlayScrollbarsGlobal.OverlayScrollbars;
+      document.querySelectorAll("[data-overlayscrollbars-initialize]").forEach((elm) => {
+        OverlayScrollbars(elm, {
+          overflow: {
+            x: "hidden",
+            y: "scroll",
+          },
+          scrollbars: {
+            theme: "os-theme-ios",
+            visibility: "auto",
+            autoHide: "leave",
+            dragScroll: true,
+            clickScroll: true,
+          },
+        });
+      });
+
+      //Take and download screenshot
+      function capture() {
+        const captureElement = document.querySelector("#output");
+        html2canvas(captureElement, {
+          backgroundColor: null,
+          logging: false,
+          scale: 2,
+        })
+          .then((canvas) => {
+            canvas.style.display = "none";
+            document.body.appendChild(canvas);
+            return canvas;
+          })
+          .then((canvas) => {
+            const image = canvas.toDataURL("image/png");
+            const a = document.createElement("a");
+            a.setAttribute("download", "image.png");
+            a.setAttribute("href", image);
+            a.click();
+            canvas.remove();
+          });
+      }
+
+      const captureBtn = document.querySelector("#capture-btn");
+      captureBtn.addEventListener("click", capture);
+
+      //Copy text from inputs to output
+      function copyData(sourceId, targetId) {
+        var data = document.getElementById(sourceId).value;
+        document.getElementById(targetId).innerHTML = data;
+      }
+
+      //Upload recipient icon to output
+      var iconOutput, iconUpload, iconImage;
+
+      iconUpload = document.getElementById("recipient-img-upload");
+      iconImage = document.getElementById("recipient-img");
+
+      iconUpload.addEventListener("change", function (e) {
+        iconOutput = new FileReader();
+        iconOutput.onload = function (e) {
+          iconImage.src = e.target.result;
+        };
+        iconOutput.readAsDataURL(this.files[0]);
+
+        document.getElementById("recipient-img-label").innerHTML = iconUpload.value.replace(/C:\\fakepath\\/i, "");
+      });
+
+      //Add message areas and bubbles and scroll them into view
+      function addMsg() {
+        var anysize = 5;
+        var charset = "abcdefghijklmnopqrstuvwxyz0123456789";
+        msgClusterId = "";
+        for (var i = 0; i < anysize; i++) msgClusterId += charset[Math.floor(Math.random() * charset.length)];
+        msgBubbleId1 = "";
+        for (var i = 0; i < anysize; i++) msgBubbleId1 += charset[Math.floor(Math.random() * charset.length)];
+        msgBubbleId2 = "";
+        for (var i = 0; i < anysize; i++) msgBubbleId2 += charset[Math.floor(Math.random() * charset.length)];
+        msgBubbleId3 = "";
+        for (var i = 0; i < anysize; i++) msgBubbleId3 += charset[Math.floor(Math.random() * charset.length)];
+        msgTextId1 = "";
+        for (var i = 0; i < anysize; i++) msgTextId1 += charset[Math.floor(Math.random() * charset.length)];
+        msgTextId2 = "";
+        for (var i = 0; i < anysize; i++) msgTextId2 += charset[Math.floor(Math.random() * charset.length)];
+        msgTextId3 = "";
+        for (var i = 0; i < anysize; i++) msgTextId3 += charset[Math.floor(Math.random() * charset.length)];
+        msgFormId = "";
+        for (var i = 0; i < anysize; i++) msgFormId += charset[Math.floor(Math.random() * charset.length)];
+        msgToggleGroupId = "";
+        for (var i = 0; i < anysize; i++) msgToggleGroupId += charset[Math.floor(Math.random() * charset.length)];
+        msgToggleId1 = "";
+        for (var i = 0; i < anysize; i++) msgToggleId1 += charset[Math.floor(Math.random() * charset.length)];
+        msgToggleId2 = "";
+        for (var i = 0; i < anysize; i++) msgToggleId2 += charset[Math.floor(Math.random() * charset.length)];
+        msgToggleId3 = "";
+        for (var i = 0; i < anysize; i++) msgToggleId3 += charset[Math.floor(Math.random() * charset.length)];
+        msgInputId = "";
+        for (var i = 0; i < anysize; i++) msgInputId += charset[Math.floor(Math.random() * charset.length)];
+
+        var newMsgForm = document.createElement("div");
+        newMsgForm.setAttribute("class", "msg-form");
+        newMsgForm.setAttribute("id", "msg-form-" + msgFormId + "");
+        newMsgForm.innerHTML = "<i class='remove-msg bi bi-dash-circle-fill' onclick=\"removeMsg('msg-form-" + msgFormId + "', 'msg-cluster-" + msgClusterId + "')\"></i><form class='input-wrapper border-bottom-0 rounded-0 rounded-top p-1'><fieldset class='btn-group d-flex justify-content-evenly p-1' id='msg-type-group-" + msgToggleGroupId + "' role='group' aria-label='Message Type Buttons'><input type='radio' class='btn-check' name='msg-type-group-" + msgToggleGroupId + "' id='msg-type-sender-" + msgToggleId1 + "' autocomplete='off' data-bs-toggle='collapse' data-bs-target='#msg-bubble-" + msgBubbleId1 + "' aria-expanded='true' aria-controls='msg-bubble-" + msgBubbleId1 + "' checked /><label class='btn btn-custom flex-fill fs-7 rounded' for='msg-type-sender-" + msgToggleId1 + "'>Sender</label><input type='radio' class='btn-check' name='msg-type-group-" + msgToggleGroupId + "' id='msg-type-text-" + msgToggleId2 + "' autocomplete='off' data-bs-toggle='collapse' data-bs-target='#msg-bubble-" + msgBubbleId2 + "' aria-expanded='false' aria-controls='msg-bubble-" + msgBubbleId2 + "' /><label class='btn btn-custom flex-fill fs-7 rounded' for='msg-type-text-" + msgToggleId2 + "'>Sender Text</label><input type='radio' class='btn-check' name='msg-type-group-" + msgToggleGroupId + "' id='msg-type-recipient-" + msgToggleId3 + "' autocomplete='off' data-bs-toggle='collapse' data-bs-target='#msg-bubble-" + msgBubbleId3 + "' aria-expanded='false' aria-controls='msg-bubble-" + msgBubbleId3 + "' /><label class='btn btn-custom flex-fill fs-7 rounded' for='msg-type-recipient-" + msgToggleId3 + "'>Recipient</label></fieldset></form><textarea class='form-control msg-input rounded-0 rounded-bottom' id='msg-input-" + msgInputId + "' rows='3' placeholder='Write a message...' oninput=\"copyData('msg-input-" + msgInputId + "', 'msg-" + msgTextId1 + "'); copyData('msg-input-" + msgInputId + "', 'msg-" + msgTextId2 + "'); copyData('msg-input-" + msgInputId + "', 'msg-" + msgTextId3 + "');\"></textarea>";
+        var msgContainer = document.getElementById("msg-fields");
+        msgContainer.appendChild(newMsgForm);
+        document.getElementById("msg-list").innerHTML += "<div class='msg-cluster d-flex flex-column' id='msg-cluster-" + msgClusterId + "'><div class='d-inline-flex'><div class='msg-bubble-sender collapse show' id='msg-bubble-" + msgBubbleId1 + "' data-bs-parent='#msg-cluster-" + msgClusterId + "'><p class='m-0 text-break' id='msg-" + msgTextId1 + "'></p></div></div><div class='d-inline-flex'><div class='msg-bubble-text collapse' id='msg-bubble-" + msgBubbleId2 + "' data-bs-parent='#msg-cluster-" + msgClusterId + "'><p class='m-0 text-break' id='msg-" + msgTextId2 + "'></p></div></div><div class='d-inline-flex'><div class='msg-bubble-recipient collapse' id='msg-bubble-" + msgBubbleId3 + "' data-bs-parent='#msg-cluster-" + msgClusterId + "'><p class='m-0 text-break' id='msg-" + msgTextId3 + "'></p></div></div></div>";
+
+        const msgList = document.getElementById("msg-list-anchor");
+        msgList.scrollIntoView();
+        const msgFields = document.getElementById("msg-fields-anchor");
+        msgFields.scrollIntoView();
+      }
+
+      //Remove message fields and bubbles
+      function removeMsg(msgField, msgCluster) {
+        document.getElementById(msgField).remove();
+        document.getElementById(msgCluster).remove();
+      }
+
+      //Change color mode
+      function colorMode() {
+        if (document.getElementById("color-mode-switch").checked) {
+          document.documentElement.setAttribute("data-bs-theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-bs-theme", "light");
+        }
+      }
+
+      //Clear all user input
+      function clearAll() {
+        var clearFormControl = document.querySelectorAll(".form-control");
+        clearFormControl.forEach(function (formControl) {
+          formControl.value = "";
+        });
+
+        var clearMsgTypeCheck = document.querySelectorAll("[id^='msg-type-']");
+        clearMsgTypeCheck.forEach(function (msgTypeCheck) {
+          msgTypeCheck.setAttribute("aira-expanded", "false");
+          msgTypeCheck.classList.remove("collapsed");
+        });
+
+        var clearMsgTypeSenderCheck = document.querySelectorAll("[id^='msg-type-sender-']");
+        clearMsgTypeSenderCheck.forEach(function (msgTypeSenderCheck) {
+          msgTypeSenderCheck.checked = true;
+          msgTypeSenderCheck.setAttribute("aira-expanded", "true");
+        });
+
+        document.getElementById("airplane-mode-switch").checked = false;
+
+        document.getElementById("airplane-mode-switch").setAttribute("aria-expanded", "true");
+
+        document.getElementById("recipient-img-upload").value = "";
+        
+        document.getElementById("recipient-img-label").innerHTML = "Upload Icon";
+
+        document.getElementById("signal-slider").value = "4";
+
+        document.getElementById("wifi-slider").value = "3";
+
+        document.getElementById("battery-slider").value = "100";
+
+        var clearFormSelect = document.querySelectorAll(".form-select");
+        clearFormSelect.forEach(function (formSelect) {
+          formSelect.selectedIndex = 0;
+          formSelect.value = 0;
+        });
+
+        var clearFormSelectOptions = document.querySelectorAll(".form-select-option");
+        clearFormSelectOptions.forEach(function (formSelectOptions) {
+          formSelectOptions.setAttribute("aria-expanded", "false");
+          formSelectOptions.classList.remove("collapsed");
+        });
+
+        var clearFormSelectOptions0 = document.querySelectorAll(".form-select-option[value='0']");
+        clearFormSelectOptions0.forEach(function (formSelectOptions0) {
+          formSelectOptions0.setAttribute("aria-expanded", "true");
+        });
+
+        var clearNewMsgFields = document.querySelectorAll(".msg-form:not(#msg-form-834jn)");
+        clearNewMsgFields.forEach(function (newMsgFields) {
+          newMsgFields.remove();
+        });
+
+        document.getElementById("network").innerHTML = "Network";
+
+        document.getElementById("recipient-icon").innerHTML = "";
+
+        document.getElementById("recipient-name").innerHTML = "Contact Name";
+
+        document.getElementById("signal").setAttribute("data-signal", "4");
+
+        document.getElementById("wifi").setAttribute("data-wifi", "3");
+
+        document.getElementById("battery").setAttribute("data-battery", "100");
+
+        document.getElementById("recipient-img").setAttribute("src", "images/placeholder.png");
+
+        document.getElementById("airplane").classList.remove("show");
+
+        document.getElementById("connection-type").classList.remove("show");
+
+        document.getElementById("connection-type").classList.add("show");
+
+        document.getElementById("connection-lte").classList.remove("show");
+
+        document.getElementById("connection-5g").classList.remove("show");
+
+        document.getElementById("connection-4g").classList.remove("show");
+
+        document.getElementById("connection-3g").classList.remove("show");
+
+        document.getElementById("wifi").classList.remove("show");
+
+        document.getElementById("wifi").classList.add("show");
+
+        document.getElementById("field-text-message").classList.remove("show");
+
+        document.getElementById("field-imessage").classList.remove("show");
+
+        document.getElementById("field-imessage").classList.add("show");
+
+        document.getElementById("msg-bubble-o8fdn").classList.remove("show");
+
+        document.getElementById("msg-bubble-o8fdn").classList.add("show");
+
+        document.getElementById("msg-bubble-ru984").classList.remove("show");
+
+        document.getElementById("msg-bubble-9834n").classList.remove("show");
+
+        document.getElementById("msg-7dkh1").innerHTML = "";
+
+        document.getElementById("msg-894nc").innerHTML = "";
+
+        document.getElementById("msg-ux43r").innerHTML = "";
+
+        var clearNewMsgBubbles = document.querySelectorAll(".msg-cluster:not(#msg-cluster-2u898)");
+        clearNewMsgBubbles.forEach(function (newMsgBubbles) {
+          newMsgBubbles.remove();
+        });
+      }
+
+      function clearImgUpload() {
+        document.getElementById("recipient-img-upload").value = "";
+        
+        document.getElementById("recipient-img-label").innerHTML = "Upload Icon";
+
+        document.getElementById("recipient-img").setAttribute("src", "images/placeholder.png");
+      }
+    </script>
+  </body>
+</html>
