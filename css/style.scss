@@ -213,6 +213,7 @@ $enable-caret: false;
   --bs-msg-bubble-sender-bg: var(--bs-primary);
   --bs-msg-bubble-text-bg: #2fc758;
   --bs-msg-bubble-recipient-bg: var(--bs-dark);
+  --bs-msg-bubble-color: var(--bs-white);
   --bs-output-footer-color: var(--bs-black);
 
   .link {
@@ -460,6 +461,7 @@ $enable-caret: false;
   --bs-msg-bubble-sender-bg: var(--bs-primary);
   --bs-msg-bubble-text-bg: #2fc758;
   --bs-msg-bubble-recipient-bg: var(--bs-tertiary);
+  --bs-msg-bubble-color: var(--bs-white);
   --bs-output-footer-color: var(--bs-light);
 
   @function svgLight($light) {
@@ -1529,6 +1531,7 @@ label[for="battery-slider"] {
 .msg-bubble {
   &-sender {
     background-color: var(--bs-msg-bubble-sender-bg);
+    color: var(--bs-msg-bubble-color);
     border-radius: 16px;
     min-height: 2.5rem;
     margin-bottom: $spacer;
@@ -1569,6 +1572,7 @@ label[for="battery-slider"] {
 
   &-text {
     background-color: var(--bs-msg-bubble-text-bg);
+    color: var(--bs-msg-bubble-color);
     border-radius: 16px;
     min-height: 2.5rem;
     margin-bottom: $spacer;
@@ -1609,6 +1613,7 @@ label[for="battery-slider"] {
 
   &-recipient {
     background-color: var(--bs-msg-bubble-recipient-bg);
+    color: var(--bs-msg-bubble-color);
     border-radius: 16px;
     min-height: 2.5rem;
     margin-bottom: $spacer;

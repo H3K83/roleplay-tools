@@ -11550,6 +11550,7 @@ textarea.form-control-lg {
   --bs-msg-bubble-sender-bg: var(--bs-primary);
   --bs-msg-bubble-text-bg: #2fc758;
   --bs-msg-bubble-recipient-bg: var(--bs-dark);
+  --bs-msg-bubble-color: var(--bs-white);
   --bs-output-footer-color: var(--bs-black);
 }
 :root .link-primary,
@@ -11804,6 +11805,7 @@ textarea.form-control-lg {
   --bs-msg-bubble-sender-bg: var(--bs-primary);
   --bs-msg-bubble-text-bg: #2fc758;
   --bs-msg-bubble-recipient-bg: var(--bs-tertiary);
+  --bs-msg-bubble-color: var(--bs-white);
   --bs-output-footer-color: var(--bs-light);
 }
 [data-bs-theme=dark] .link-primary {
@@ -12650,6 +12652,7 @@ label[for=battery-slider] {
 
 .msg-bubble-sender {
   background-color: var(--bs-msg-bubble-sender-bg);
+  color: var(--bs-msg-bubble-color);
   border-radius: 16px;
   min-height: 2.5rem;
   margin-bottom: 1rem;
@@ -12686,6 +12689,7 @@ label[for=battery-slider] {
 }
 .msg-bubble-text {
   background-color: var(--bs-msg-bubble-text-bg);
+  color: var(--bs-msg-bubble-color);
   border-radius: 16px;
   min-height: 2.5rem;
   margin-bottom: 1rem;
@@ -12722,6 +12726,7 @@ label[for=battery-slider] {
 }
 .msg-bubble-recipient {
   background-color: var(--bs-msg-bubble-recipient-bg);
+  color: var(--bs-msg-bubble-color);
   border-radius: 16px;
   min-height: 2.5rem;
   margin-bottom: 1rem;
