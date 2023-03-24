@@ -12681,6 +12681,9 @@ label[for=battery-slider] {
   width: 10px;
   z-index: 1;
 }
+.msg-bubble-sender > p[id^=msg-] {
+  white-space: pre-wrap;
+}
 .msg-bubble-text {
   background-color: var(--bs-msg-bubble-text-bg);
   border-radius: 16px;
@@ -12714,6 +12717,9 @@ label[for=battery-slider] {
   width: 10px;
   z-index: 1;
 }
+.msg-bubble-text > p[id^=msg-] {
+  white-space: pre-wrap;
+}
 .msg-bubble-recipient {
   background-color: var(--bs-msg-bubble-recipient-bg);
   border-radius: 16px;
@@ -12746,6 +12752,9 @@ label[for=battery-slider] {
   left: -10px;
   width: 10px;
   z-index: 1;
+}
+.msg-bubble-recipient > p[id^=msg-] {
+  white-space: pre-wrap;
 }
 
 #output-footer {
