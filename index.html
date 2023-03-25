@@ -71,7 +71,8 @@
                     <i class="clear-input-icon bi bi-x-circle-fill" onclick="clearImgUpload()"></i>
                     <input class="d-none" type="file" id="recipient-img-upload" />
                   </div>
-                  <input class="form-control border-bottom-0 rounded-0" id="recipient-name-input" type="text" placeholder="Contact Name" aria-label="Contact Name" oninput="copyData('recipient-name-input', 'recipient-name'); copyData('recipient-name-input', 'recipient-icon');" />
+                  <input class="form-control border-bottom-0 rounded-0" id="recipient-name-input" type="text" placeholder="Contact Name" aria-label="Contact Name" oninput="copyData('recipient-name-input', 'recipient-name');" />
+                  <input class="form-control border-bottom-0 rounded-0" id="recipient-initial-input" type="text" placeholder="Contact Initial" maxlength="1" aria-label="Contact Name" oninput="copyData('recipient-initial-input', 'recipient-initial');" />
                   <select class="form-select rounded-0 rounded-bottom" id="message-type-select" aria-label="Message type">
                     <option class="form-select-option" value="0" selected data-bs-toggle="collapse" data-bs-target="#field-imessage" aria-expanded="true" aria-controls="field-imessage">iMessage</option>
                     <option class="form-select-option" value="1" data-bs-toggle="collapse" data-bs-target="#field-text-message" aria-expanded="false" aria-controls="field-text-message">Text Message</option>
@@ -134,7 +135,7 @@
                   <div class="my-2">
                     <div class="align-items-center d-flex flex-column mx-auto">
                       <div id="recipient-img-wrapper">
-                        <div id="recipient-icon"></div>
+                        <div id="recipient-initial"></div>
                         <img src="images/placeholder.png" id="recipient-img" />
                       </div>
                       <div class="fs-9 mt-1" id="recipient-name-wrapper"><span class="d-inline-block text-truncate" id="recipient-name" style="max-width: 10rem">Contact Name</span></div>
@@ -198,7 +199,7 @@
       function capture() {
         const captureElement = document.querySelector("#output");
         html2canvas(captureElement, {
-          backgroundColor: null,
+          backgroundColor: "#000000",
           logging: false,
           scale: 2,
         })
@@ -208,7 +209,7 @@
             return canvas;
           })
           .then((canvas) => {
-            const image = canvas.toDataURL("image/png");
+            const image = canvas.toDataURL("image/jpeg");
             const a = document.createElement("a");
             a.setAttribute("download", "image.png");
             a.setAttribute("href", image);
@@ -359,7 +360,7 @@
 
         document.getElementById("network").innerHTML = "Network";
 
-        document.getElementById("recipient-icon").innerHTML = "";
+        document.getElementById("recipient-initial").innerHTML = "";
 
         document.getElementById("recipient-name").innerHTML = "Contact Name";
 

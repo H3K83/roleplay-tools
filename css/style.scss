@@ -207,6 +207,7 @@ $enable-caret: false;
   --bs-wifi-bg: url("../images/wifi.png");
   --bs-airplane-bg: url("../images/airplane.png");
   --bs-battery-bg: url("../images/battery.png");
+  --bs-recipient-initial-color: var(--bs-light);
   --bs-recipient-img-bg: var(--bs-dark);
   --bs-recipient-name-icon-color: var(--bs-black);
   --bs-msg-list-bg: var(--bs-light);
@@ -455,6 +456,7 @@ $enable-caret: false;
   --bs-wifi-bg: url("../images/wifi_dark.png");
   --bs-airplane-bg: url("../images/airplane_dark.png");
   --bs-battery-bg: url("../images/battery_dark.png");
+  --bs-recipient-initial-color: var(--bs-white);
   --bs-recipient-img-bg: var(--bs-light);
   --bs-recipient-name-icon-color: var(--bs-light);
   --bs-msg-list-bg: var(--bs-dark);
@@ -1461,18 +1463,15 @@ label[for="battery-slider"] {
   max-width: 40px;
 }
 
-#recipient-icon {
-  font-size: 0;
+#recipient-initial {
+  color: var(--bs-recipient-initial-color);
+  font-size: 1.5rem;
   font-weight: 300;
   height: 100%;
   line-height: 40px;
   text-align: center;
+  text-transform: capitalize;
   width: 100%;
-
-  &::first-letter {
-    font-size: 1.5rem;
-    text-transform: capitalize;
-  }
 }
 
 #recipient-img {
