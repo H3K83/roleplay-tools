@@ -12551,11 +12551,17 @@ label[for=battery-slider] {
   height: 812px;
   max-height: 812px;
   margin: 0 auto;
+  transform: scale(0.8);
   min-width: 375px;
   width: 375px;
   max-width: 375px;
 }
 
+@media (min-width: 992px) {
+  #output {
+    transform: scale(1);
+  }
+}
 #network {
   min-height: 0.9rem;
   height: 0.9rem;
